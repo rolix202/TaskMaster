@@ -1,0 +1,155 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e3f2fd, #f0e6ff);
+    overflow: hidden;
+  }
+  
+  .login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .login-container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+  }
+  
+  /* Illustration Side */
+  .illustration-side {
+    flex: 1;
+    background: linear-gradient(135deg, #6200ea, #3f51b5);
+    color: #fff;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .illustration-side h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .illustration-side p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .illustration-side img {
+    width: 70%;
+    max-width: 400px;
+    animation: float 4s infinite ease-in-out;
+  }
+  
+  /* Floating Animation */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  /* Form Side */
+  .form-side {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .form-side h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #6200ea;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    position: relative;
+  }
+  
+  .form-group label {
+    display: flex;
+    align-items: center;
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0.8rem 1rem;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .form-group label:hover {
+    border-color: #6200ea;
+    box-shadow: 0 4px 10px rgba(98, 0, 234, 0.2);
+  }
+  
+  .form-group input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1rem;
+    flex: 1;
+    margin-left: 10px;
+  }
+  
+  .form-group .icon-email, 
+  .form-group .icon-lock {
+    font-size: 1.2rem;
+    color: #6200ea;
+  }
+  
+  .auth-button {
+    background: #6200ea;
+    color: #fff;
+    padding: 1rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .auth-button:hover {
+    background: #4b00c4;
+    transform: translateY(-2px);
+  }
+  
+  .form-side a {
+    color: #6200ea;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .form-side a:hover {
+    text-decoration: underline;
+  }
+  
+  .form-side p {
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+  }
+  
