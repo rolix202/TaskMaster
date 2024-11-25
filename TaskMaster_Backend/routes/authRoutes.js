@@ -84,7 +84,7 @@ router.get('/current-user', protect, async (req, res) => {
                 message: "Access Denied!"
             })
         }
-        
+
         res.status(200).json(user)
 
     } catch (error) {
@@ -94,5 +94,26 @@ router.get('/current-user', protect, async (req, res) => {
     }
     
 })
+
+router.post('/logout', (req, res) => {
+    try {
+    
+        res.cookie('token', '', {
+            httpOnly: true, 
+            secure: process.env.NODE_ENV === 'production', 
+            sameSite: 'Strict', 
+            expires: new Date(0) 
+        });
+
+        return res.status(200).json({
+            message: 'Logged out successfully.'
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Server error during logout'
+        });
+    }
+});
+
 
 export default router

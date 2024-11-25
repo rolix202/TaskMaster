@@ -3,17 +3,40 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateFields(fields) {
         for (const field of fields) {
             if (!field.value.trim()) {
-                alert(`${field.name} is required`);
+                showToast(`${field.name} is required`, "error");
                 return false;
             }
         }
         return true;
     }
 
+    function showToast(message, type) {
+        const toast = document.createElement("div");
+        toast.classList.add("toast", type);
+        toast.innerText = message;
+        
+        document.body.appendChild(toast);
+    
+        // Show the toast
+        setTimeout(() => {
+            toast.style.display = "block";
+            toast.style.opacity = "1";
+        }, 100);
+    
+        // Hide after 3 seconds
+        setTimeout(() => {
+            toast.style.opacity = "0";
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 300);
+        }, 3000);
+    }
+    
+
     // Signup handler
     const signup_form = document.getElementById("signup-form");
 
-    if (signup_form){
+    if (signup_form) {
         signup_form.addEventListener("submit", async (e) => {
             e.preventDefault();
     
@@ -31,12 +54,12 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!isValid) return;
     
             if (password.length < 6) {
-                alert("Password must be at least 6 characters long");
+                showToast("Password must be at least 6 characters long", "error");
                 return;
             }
     
             if (password !== c_password) {
-                alert("Passwords do not match!");
+                showToast("Passwords do not match!", "error");
                 return;
             }
     
@@ -49,23 +72,24 @@ document.addEventListener('DOMContentLoaded', function () {
     
                 const data = await response.json();
                 if (response.ok) {
-                    alert("Signup successful");
+                    showToast("Signup successful", "success");
                     window.location.href = "login.html"; // Redirect
                 } else {
-                    alert(data.message || "Signup failed");
+                    showToast(data.message || "Signup failed", "error");
                 }
             } catch (error) {
                 console.error("Signup error:", error);
-                alert("Failed to register user");
+                showToast("Failed to register user", "error");
             }
         });
     }
-    
+
+
 
     // Login handler
     const login_form = document.getElementById("login-form");
 
-    if (login_form){
+    if (login_form) {
         login_form.addEventListener("submit", async (e) => {
             e.preventDefault();
     
@@ -89,15 +113,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 const data = await response.json();
                 
                 if (response.ok) {
-                    alert("Login successful");
+                    showToast("Login successful", "success");
                     window.location.href = "dashboard.html"; // Redirect
                 } else {
-                    alert(data.message || "Login failed");
+                    showToast(data.message || "Login failed", "error");
                 }
 
             } catch (error) {
                 console.error("Login error:", error);
-                alert("Failed to login user");
+                showToast("Failed to login user", "error");
             }
         });
     }

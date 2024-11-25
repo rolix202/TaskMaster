@@ -229,7 +229,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         tasks.forEach((task, index) => {
             const taskCard = document.createElement("div");
-            taskCard.classList.add("task-card");
+
+            if (task){
+                taskCard.classList.add("task-card");
             taskCard.setAttribute("data-id", task._id);  // Set a data-id attribute for identification
 
             let status_color = task.status === "In progress" ? "inprogress" : task.status === "Completed" ? "completed" : task.status === "Cancelled" ? "cancelled" : "";
@@ -257,6 +259,10 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
 
             taskList.appendChild(taskCard);
+            } else {
+                taskList.innerHTML = "<h1>No Task Record Found!</h1>"
+            }
+            
         });
     };
 
@@ -291,28 +297,48 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+
+    const deleteTaskModal = document.getElementById("delete-task-modal");
+    const deleteTaskConfirm = document.getElementById("delete-task-confirm");
+    const deleteTaskCancel = document.getElementById("delete-task-cancel");
+
+    let taskToDeleteId = null
+
     // Event listener for delete button
     taskList.addEventListener("click", async (e) => {
         if (e.target.classList.contains("delete-task-btn")) {
             const taskId = e.target.getAttribute("data-id");
 
-            if (confirm("Are you sure you want to delete this task?")) {
-                const response = await fetch(`http://localhost:8000/api/taskmanager/tasks/${taskId}`, {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                });
+            taskToDeleteId = taskId
 
-                if (response.ok) {
-                    alert("Task deleted successfully");
-                    window.location.reload();  // Reload the page after deletion
-                } else {
-                    alert("Failed to delete task");
-                }
-            }
+            deleteTaskModal.style.display = "flex"
         }
+    });
+
+    // Confirm task deletion
+    deleteTaskConfirm.addEventListener("click", async () => {
+        const response = await fetch(`http://localhost:8000/api/taskmanager/tasks/${taskToDeleteId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+        });
+
+        if (response.ok) {
+            // Hide the modal and remove the task from the UI
+            deleteTaskModal.style.display = "none";
+            document.querySelector(`.task-card[data-id="${taskToDeleteId}"]`).remove();
+            showToast("Task deleted successfully", "success");
+        } else {
+            showToast("Failed to delete task", "error");
+        }
+    });
+
+    // Cancel task deletion
+    deleteTaskCancel.addEventListener("click", () => {
+        // Close the modal without deleting
+        deleteTaskModal.style.display = "none";
     });
 
 
