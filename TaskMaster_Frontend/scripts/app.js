@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
     
         setTimeout(() => {
             toast.remove();
-        }, 4000); // Adjust time as needed
+        }, 4000); 
     }
     
 
     // Open modal for creating a new task
     addTaskBtn.addEventListener("click", () => {
         taskModal.style.display = "flex";
-        taskForm.reset();  // Reset the form when adding a new task
+        taskForm.reset(); 
         editingTaskId = null;  // Clear any existing task ID (indicating new task)
     });
 
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 taskModal.style.display = "none";
                 showToast("Task Updated Successfully.", "success");
             } else {
-                showToast("Failed to update task.", "error");
+                showToast(fetchResponse.message || "Failed to update task.", "error");
             }
             
             
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Show a success toast
                 showToast("Task added successfully.", "success");
             } else {
-                showToast("Failed to add task.", "error");
+                showToast(createResponse.message || "Failed to add task.", "error");
             }
             
         }
@@ -226,17 +226,34 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to render tasks in the task list
     const renderTasks = (tasks) => {
         taskList.innerHTML = "";  // Clear the existing task list before rendering
-
+    
+        if (tasks.length === 0) {
+            taskList.innerHTML = "<h1 class='no_task'>No Task Record Found!</h1>";
+            return;
+        }
+    
         tasks.forEach((task, index) => {
             const taskCard = document.createElement("div");
-
-            if (task){
-                taskCard.classList.add("task-card");
-            taskCard.setAttribute("data-id", task._id);  // Set a data-id attribute for identification
-
-            let status_color = task.status === "In progress" ? "inprogress" : task.status === "Completed" ? "completed" : task.status === "Cancelled" ? "cancelled" : "";
-            let priority_color = task.priority === "high" ? "high" : task.priority === "medium" ? "medium" : task.priority === "low" ? "low" : "";
-
+            taskCard.classList.add("task-card");
+            taskCard.setAttribute("data-id", task._id); // Set a data-id attribute for identification
+    
+            let status_color =
+                task.status === "In progress"
+                    ? "inprogress"
+                    : task.status === "Completed"
+                    ? "completed"
+                    : task.status === "Cancelled"
+                    ? "cancelled"
+                    : "";
+            let priority_color =
+                task.priority === "high"
+                    ? "high"
+                    : task.priority === "medium"
+                    ? "medium"
+                    : task.priority === "low"
+                    ? "low"
+                    : "";
+    
             taskCard.innerHTML = `
                 <div class="task-header">
                     <div class="task-head-head">
@@ -249,7 +266,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="task-footer">
                     <div class="task-meta">
                         <span class="task-priority ${priority_color}">${task.priority}</span>
-                        <span class="task-deadline">Due: ${new Date(task.deadline).toLocaleDateString()}</span>
+                        <span class="task-deadline">Due: ${new Date(
+                            task.deadline
+                        ).toLocaleDateString()}</span>
                     </div>
                     <div class="task-actions">
                         <button class="edit-task-btn" data-id="${task._id}">Edit</button>
@@ -257,14 +276,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </div>
             `;
-
+    
             taskList.appendChild(taskCard);
-            } else {
-                taskList.innerHTML = "<h1>No Task Record Found!</h1>"
-            }
-            
         });
     };
+    
 
     // Event listener for edit button
     taskList.addEventListener("click", async (e) => {
@@ -331,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector(`.task-card[data-id="${taskToDeleteId}"]`).remove();
             showToast("Task deleted successfully", "success");
         } else {
-            showToast("Failed to delete task", "error");
+            showToast(response.message || "Failed to delete task", "error");
         }
     });
 

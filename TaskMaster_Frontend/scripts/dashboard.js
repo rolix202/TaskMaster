@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Wait for 2 seconds to give the user time to see the toast
                 setTimeout(() => {
                     window.location.href = "login.html"; // Redirect to login page
-                }, 2000); // Wait 2 seconds before redirecting
+                }, 1000); // Wait 1 seconds before redirecting
             } else {
                 // Show error toast
                 showToast(data.message || "Failed to log out.", "error");

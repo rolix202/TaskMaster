@@ -481,4 +481,7 @@ body {
   background-color: #4CAF50;
   color: white;
 }
-
+.no_task{
+  font-size: 1.2rem;
+  font-style: italic;
+}
