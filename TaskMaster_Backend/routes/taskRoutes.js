@@ -115,8 +115,6 @@ router.put('/tasks/:id', protect, async (req, res) => {
 // Route to delete a task (admins can delete any task, users can only delete their own tasks)
 
 router.delete('/tasks/:id', protect, async (req, res) => {
-
-    console.log(req.params.id);
     
     try {
         const task = await Task.findById(req.params.id)

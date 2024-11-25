@@ -14,7 +14,7 @@ connectDB()
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    origin: "http://localhost:5500", // Front end origin
+    origin: process.env.ORIGIN_FRONTEND,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));

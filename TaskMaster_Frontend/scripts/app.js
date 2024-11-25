@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (editingTaskId) {
             // If there's an editing task ID, send a PUT request to update the existing task
             const updateResponse = await fetch(
-                `http://localhost:8000/api/taskmanager/tasks/${editingTaskId}`,
+                `https://taskmaster-fc59.onrender.com/api/taskmanager/tasks/${editingTaskId}`,
                 {
                     method: "PUT",
                     headers: {
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (updateResponse.ok) {
                 // Fetch the updated task from the server
-                const fetchResponse = await fetch(`http://localhost:8000/api/taskmanager/tasks/${editingTaskId}`, {
+                const fetchResponse = await fetch(`https://taskmaster-fc59.onrender.com/api/taskmanager/tasks/${editingTaskId}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                     credentials: "include",
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             // If there's no editing task ID, send a POST request to create a new task
             const createResponse = await fetch(
-                "http://localhost:8000/api/taskmanager/tasks",
+                "https://taskmaster-fc59.onrender.com/api/taskmanager/tasks",
                 {
                     method: "POST",
                     headers: {
@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Loading tasks from the server
     const loadTasks = async () => {
         const response = await fetch(
-            "http://localhost:8000/api/taskmanager/tasks",
+            "https://taskmaster-fc59.onrender.com/api/taskmanager/tasks",
             {
                 method: "GET",
                 headers: {
@@ -287,7 +287,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.target.classList.contains("edit-task-btn")) {
             const taskId = e.target.getAttribute("data-id");
 
-            const response = await fetch(`http://localhost:8000/api/taskmanager/tasks/${taskId}`, {
+            const response = await fetch(`https://taskmaster-fc59.onrender.com/api/taskmanager/tasks/${taskId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -333,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Confirm task deletion
     deleteTaskConfirm.addEventListener("click", async () => {
-        const response = await fetch(`http://localhost:8000/api/taskmanager/tasks/${taskToDeleteId}`, {
+        const response = await fetch(`https://taskmaster-fc59.onrender.com/api/taskmanager/tasks/${taskToDeleteId}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

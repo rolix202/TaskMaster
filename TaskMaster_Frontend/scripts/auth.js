@@ -44,6 +44,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             const c_password = document.getElementById("c_password").value;
+
+            console.log(password);
+            
     
             const isValid = validateFields([
                 { name: 'Username', value: username },
@@ -64,11 +67,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }
     
             try {
-                const response = await fetch("http://localhost:8000/api/auth/signup", {
+                const response = await fetch("https://taskmaster-fc59.onrender.com/api/auth/signup", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, email, password }),
                 });
+                
     
                 const data = await response.json();
                 if (response.ok) {
@@ -101,9 +105,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 { name: 'Password', value: password },
             ]);
             if (!isValid) return;
+
+            if (password.length < 6) {
+                showToast("Password must be at least 6 characters long", "error");
+                return;
+            }
     
             try {
-                const response = await fetch("http://localhost:8000/api/auth/login", {
+                const response = await fetch("https://taskmaster-fc59.onrender.com/api/auth/login", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
@@ -121,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             } catch (error) {
                 console.error("Login error:", error);
-                showToast("Failed to login user", "error");
+                showToast(response.message || "Failed to login user", "error");
             }
         });
     }

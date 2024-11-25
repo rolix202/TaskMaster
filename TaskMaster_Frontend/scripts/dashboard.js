@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const response = await fetch('http://localhost:8000/api/auth/current-user', {
+    const response = await fetch('https://taskmaster-fc59.onrender.com/api/auth/current-user', {
         method: 'GET',
         credentials: 'include'
     });
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function logout() {
         try {
-            const response = await fetch("http://localhost:8000/api/auth/logout", {
+            const response = await fetch("https://taskmaster-fc59.onrender.com/api/auth/logout", {
                 method: 'POST',
                 credentials: 'include', // Include cookies in the request
             });
