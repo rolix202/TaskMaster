@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (editingTaskId) {
             // If there's an editing task ID, send a PUT request to update the existing task
             const updateResponse = await fetch(
-                `https://taskmaster-fc59.onrender.com/api/taskmanager/tasks/${editingTaskId}`,
+                `http://localhost:8000/api/taskmanager/tasks/${editingTaskId}`,
                 {
                     method: "PUT",
                     headers: {
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (updateResponse.ok) {
                 // Fetch the updated task from the server
-                const fetchResponse = await fetch(`https://taskmaster-fc59.onrender.com/api/taskmanager/tasks/${editingTaskId}`, {
+                const fetchResponse = await fetch(`http://localhost:8000/api/taskmanager/tasks/${editingTaskId}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                     credentials: "include",
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             // If there's no editing task ID, send a POST request to create a new task
             const createResponse = await fetch(
-                "https://taskmaster-fc59.onrender.com/api/taskmanager/tasks",
+                "http://localhost:8000/api/taskmanager/tasks",
                 {
                     method: "POST",
                     headers: {
@@ -146,59 +146,11 @@ document.addEventListener("DOMContentLoaded", function () {
             );
             
             if (createResponse.ok) {
-                // Fetch the newly created task
-                const newTask = await createResponse.json();
             
-                // Close the modal
                 taskModal.style.display = "none";
             
-                // Dynamically add the new task to the task list in the UI
-                const taskCard = document.createElement("div");
-                taskCard.classList.add("task-card");
-                taskCard.setAttribute("data-id", newTask._id); // Set the task ID
+                loadTasks()
             
-                // Determine status and priority colors
-                const statusClass =
-                    newTask.status === "In progress"
-                        ? "inprogress"
-                        : newTask.status === "Completed"
-                        ? "completed"
-                        : "cancelled";
-            
-                const priorityClass =
-                    newTask.priority === "low"
-                        ? "low"
-                        : newTask.priority === "medium"
-                        ? "medium"
-                        : "high";
-            
-                // Populate task card HTML
-                taskCard.innerHTML = `
-                    <div class="task-header">
-                        <div class="task-head-head">
-                            <h1>Task</h1>
-                            <span class="task-status ${statusClass}">${newTask.status}</span>
-                        </div>
-                        <h3 class="task-title">${newTask.title}</h3>
-                    </div>
-                    <p class="task-description">${newTask.description}</p>
-                    <div class="task-footer">
-                        <div class="task-meta">
-                            <span class="task-priority ${priorityClass}">${newTask.priority}</span>
-                            <span class="task-deadline">Due: ${new Date(newTask.deadline).toLocaleDateString()}</span>
-                        </div>
-                        <div class="task-actions">
-                            <button class="edit-task-btn" data-id="${newTask._id}">Edit</button>
-                            <button class="delete-task-btn" data-id="${newTask._id}">Delete</button>
-                        </div>
-                    </div>
-                `;
-            
-                // Append the new task card to the task list
-                const taskList = document.querySelector(".task-list");
-                taskList.appendChild(taskCard);
-            
-                // Show a success toast
                 showToast("Task added successfully.", "success");
             } else {
                 showToast(createResponse.message || "Failed to add task.", "error");
@@ -210,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Loading tasks from the server
     const loadTasks = async () => {
         const response = await fetch(
-            "https://taskmaster-fc59.onrender.com/api/taskmanager/tasks",
+            "http://localhost:8000/api/taskmanager/tasks",
             {
                 method: "GET",
                 headers: {
@@ -287,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.target.classList.contains("edit-task-btn")) {
             const taskId = e.target.getAttribute("data-id");
 
-            const response = await fetch(`https://taskmaster-fc59.onrender.com/api/taskmanager/tasks/${taskId}`, {
+            const response = await fetch(`http://localhost:8000/api/taskmanager/tasks/${taskId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -333,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Confirm task deletion
     deleteTaskConfirm.addEventListener("click", async () => {
-        const response = await fetch(`https://taskmaster-fc59.onrender.com/api/taskmanager/tasks/${taskToDeleteId}`, {
+        const response = await fetch(`http://localhost:8000/api/taskmanager/tasks/${taskToDeleteId}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

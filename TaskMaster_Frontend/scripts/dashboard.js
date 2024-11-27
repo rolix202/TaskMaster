@@ -1,18 +1,27 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const response = await fetch('https://taskmaster-fc59.onrender.com/api/auth/current-user', {
-        method: 'GET',
-        credentials: 'include'
-    });
 
-    if (response.status === 401) {
-        window.location.href = 'login.html';
-        return;
-    }
-
-    const data = await response.json();
+    try {
+        const response = await fetch('http://localhost:8000/api/auth/current-user', {
+            method: 'GET',
+            credentials: 'include'
+        });
     
-    const username = document.querySelector(".username");
-    username.innerHTML = `Hello, <b>${data.username}!</b>`;
+        if (response.status === 401) {
+            window.location.href = 'login.html';
+            return;
+        }
+    
+        const data = await response.json();
+        
+        const username = document.querySelector(".username");
+        username.innerHTML = `Hello, <b>${data.username}!</b>`;
+    } catch (error) {
+        console.log(response.message);
+        console.log(error);
+        
+        
+    }
+    
 
     const sidebarLogoutBtn = document.getElementById("sidebar-logout-btn");
     const mainLogoutBtn = document.getElementById("main-logout-btn");
@@ -31,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function logout() {
         try {
-            const response = await fetch("https://taskmaster-fc59.onrender.com/api/auth/logout", {
+            const response = await fetch("http://localhost:8000/api/auth/logout", {
                 method: 'POST',
                 credentials: 'include', // Include cookies in the request
             });
