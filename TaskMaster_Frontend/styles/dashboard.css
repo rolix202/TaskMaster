@@ -485,3 +485,46 @@ body {
   font-size: 1.2rem;
   font-style: italic;
 }
+
+/* User Info Section */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* User Icon */
+.user-icon {
+  background: #6200ea;
+  color: #fff;
+  border-radius: 50%;
+  padding: 8px;
+  font-size: 0.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8px;
+  height: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for the icon */
+.user-icon:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Username Text */
+.username {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect for the username */
+.username:hover {
+  color: #6200ea;
+  cursor: pointer;
+}

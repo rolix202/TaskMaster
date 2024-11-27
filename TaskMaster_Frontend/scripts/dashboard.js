@@ -17,9 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         username.innerHTML = `Hello, <b>${data.username}!</b>`;
     } catch (error) {
         console.log(response.message);
-        console.log(error);
-        
-        
+           
     }
     
 

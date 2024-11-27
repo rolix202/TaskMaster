@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to render tasks in the task list
     const renderTasks = (tasks) => {
-        taskList.innerHTML = "";  // Clear the existing task list before rendering
+        taskList.innerHTML = "";  
     
         if (tasks.length === 0) {
             taskList.innerHTML = "<h1 class='no_task'>No Task Record Found!</h1>";
@@ -206,8 +206,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     ? "low"
                     : "";
     
+            // Build user info section if the user is admin
+            let userInfoSection = "";
+            if (task.createdBy.role === "admin") {
+                userInfoSection = `
+                    <div class="user-info">
+                        <div class="user-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <p class="username">${task.createdBy.username}</p>
+                    </div>
+                `;
+            }
+    
             taskCard.innerHTML = `
                 <div class="task-header">
+                    ${userInfoSection}  
                     <div class="task-head-head">
                         <h1>Task ${index + 1}</h1>
                         <span class="task-status ${status_color}">${task.status}</span>
@@ -218,9 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="task-footer">
                     <div class="task-meta">
                         <span class="task-priority ${priority_color}">${task.priority}</span>
-                        <span class="task-deadline">Due: ${new Date(
-                            task.deadline
-                        ).toLocaleDateString()}</span>
+                        <span class="task-deadline">Due: ${new Date(task.deadline).toLocaleDateString()}</span>
                     </div>
                     <div class="task-actions">
                         <button class="edit-task-btn" data-id="${task._id}">Edit</button>
@@ -232,6 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
             taskList.appendChild(taskCard);
         });
     };
+    
     
 
     // Event listener for edit button
