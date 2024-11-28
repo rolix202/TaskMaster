@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
 
     try {
-        const response = await fetch('http://localhost:8000/api/auth/current-user', {
+        const response = await fetch('https://taskmaster-fc59.onrender.com/api/auth/current-user', {
             method: 'GET',
             credentials: 'include'
         });
@@ -33,38 +33,55 @@ document.addEventListener('DOMContentLoaded', async () => {
     
         setTimeout(() => {
             toast.remove();
-        }, 4000); // Adjust time as needed
+        }, 4000);
     }
 
     async function logout() {
         try {
-            const response = await fetch("http://localhost:8000/api/auth/logout", {
+            const response = await fetch("https://taskmaster-fc59.onrender.com/api/auth/logout", {
                 method: 'POST',
-                credentials: 'include', // Include cookies in the request
+                credentials: 'include', 
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                // Show success toast
+                
                 showToast(data.message, "success");
 
-                // Wait for 2 seconds to give the user time to see the toast
                 setTimeout(() => {
-                    window.location.href = "login.html"; // Redirect to login page
-                }, 1000); // Wait 1 seconds before redirecting
+                    window.location.href = "login.html"; 
+                }, 1000); 
             } else {
-                // Show error toast
+             
                 showToast(data.message || "Failed to log out.", "error");
             }
         } catch (error) {
             console.error("Error during logout:", error);
-            // Show error toast
+           
             showToast("An error occurred during logout.", "error");
         }
     }
 
-    // Correctly attach the event listener (no immediate invocation)
-    sidebarLogoutBtn.addEventListener("click", logout);
-    mainLogoutBtn.addEventListener("click", logout);
+    
+    const hamburgerBtn = document.getElementById("hamburger-btn");
+    const sidebar = document.getElementById("sidebar");
+    const closeSidebarBtn = document.getElementById("close-sidebar-btn");
+  
+    function toggleSidebar() {
+      const isOpen = sidebar.classList.toggle("open");
+      hamburgerBtn.setAttribute("aria-expanded", isOpen);
+      document.body.style.overflow = isOpen ? "hidden" : "auto"; // Prevent scrolling when sidebar is open
+    }
+  
+    hamburgerBtn.addEventListener("click", toggleSidebar);
+    closeSidebarBtn.addEventListener("click", toggleSidebar);
+  
+    // Optional: Close sidebar when clicking outside it
+    document.addEventListener("click", (e) => {
+      if (!sidebar.contains(e.target) && !hamburgerBtn.contains(e.target) && sidebar.classList.contains("open")) {
+        toggleSidebar();
+      }
+    });
+    
 });

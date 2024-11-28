@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
     
             try {
-                const response = await fetch("http://localhost:8000/api/auth/signup", {
+                const response = await fetch("https://taskmaster-fc59.onrender.com/api/auth/signup", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, email, password }),
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
     
             try {
-                const response = await fetch("http://localhost:8000/api/auth/login", {
+                const response = await fetch("https://taskmaster-fc59.onrender.com/api/auth/login", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
