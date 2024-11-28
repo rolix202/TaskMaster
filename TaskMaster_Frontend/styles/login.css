@@ -138,10 +138,6 @@ body {
   transform: translateY(-2px);
 }
 
-
-
-
-
 .auth-button {
   background: #6200ea;
   color: #fff;
@@ -167,17 +163,10 @@ body {
   animation: spin 2s linear infinite;
 }
 
-/* .auth-button:disabled {
-  background-color: #b0c4de;
+.auth-button:disabled {
+  background-color: #c8aeec;
   cursor: not-allowed;
-} */
-
-
-
-
-
-
-
+}
 
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }

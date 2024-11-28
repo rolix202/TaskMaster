@@ -53,6 +53,9 @@ body {
 .sidebar-link.active {
   background-color: #4b00c4;
 }
+.logout-btn:disabled {
+  cursor: not-allowed;
+}
 
 /* Main Content */
 .main-content {

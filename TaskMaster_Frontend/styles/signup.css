@@ -115,9 +115,19 @@ body {
   margin-left: 10px;
 }
 
+
+.auth-button:hover {
+  background: #4b00c4;
+  transform: translateY(-2px);
+}
+
 .auth-button {
   background: #6200ea;
   color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 1rem;
   font-size: 1.2rem;
   border: none;
@@ -126,9 +136,29 @@ body {
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.auth-button:hover {
-  background: #4b00c4;
-  transform: translateY(-2px);
+.loader {
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid #3498db;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+.auth-button:disabled {
+  background-color: #c8aeec;
+  cursor: not-allowed;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .form-side a {

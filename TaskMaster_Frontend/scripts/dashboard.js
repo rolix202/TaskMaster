@@ -37,6 +37,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     async function logout() {
+        mainLogoutBtn.disabled = true;
+
         try {
             const response = await fetch("https://taskmaster-fc59.onrender.com/api/auth/logout", {
                 method: 'POST',
@@ -60,6 +62,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error("Error during logout:", error);
            
             showToast(response.message || "An error occurred during logout.", "error");
+        } finally {
+            mainLogoutBtn.disabled = false
         }
     }
 
