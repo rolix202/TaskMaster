@@ -43,7 +43,7 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-
+    
     try {
         const user = await User.findOne({ email }).select('+password')
       
@@ -68,6 +68,8 @@ router.post('/login', async (req, res) => {
             })
         }
     } catch (error) {
+        console.log(error);
+        
         res.status(500).json({
             message: 'Server error'
         })

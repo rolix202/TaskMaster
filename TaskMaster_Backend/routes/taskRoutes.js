@@ -37,10 +37,11 @@ router.get('/tasks', protect, async (req, res) => {
     try {
         let tasks;
         if (req.role === 'admin'){
-            tasks = await Task.find()
+            tasks = await Task.find().populate("createdBy", "username role")
         } else {
             tasks = await Task.find({ createdBy: req.user })
         }
+        
         res.status(200).json(tasks)
     } catch (error) {
         res.status(500).json({
