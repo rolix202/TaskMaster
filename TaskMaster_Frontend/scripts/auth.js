@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             const c_password = document.getElementById("c_password").value;
+            const authBtn = document.querySelector(".auth-button")
     
             const isValid = validateFields([
                 { name: 'Username', value: username },
@@ -62,6 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 showToast("Passwords do not match!", "error");
                 return;
             }
+
+            authBtn.disabled = true;
+            authBtn.innerHTML = `
+                <span class="loader"></span> Logging in...`;
     
             try {
                 const response = await fetch("https://taskmaster-fc59.onrender.com/api/auth/signup", {
@@ -81,6 +86,9 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (error) {
                 console.log("Signup error:", error);
                 showToast(response.message || "Failed to register user", "error");
+            } finally {
+                authBtn.disabled = false;
+                authBtn.innerHTML = "Sign Up";
             }
         });
     }
@@ -96,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
             const email = document.getElementById("login-email").value;
             const password = document.getElementById("login-password").value;
+            const authBtn = document.querySelector(".auth-button")
     
             const isValid = validateFields([
                 { name: 'Email', value: email },
@@ -107,6 +116,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 showToast("Password must be at least 6 characters long", "error");
                 return;
             }
+
+            authBtn.disabled = true;
+            authBtn.innerHTML = `
+                <span class="loader"></span> Logging in...`;
     
             try {
                 const response = await fetch("https://taskmaster-fc59.onrender.com/api/auth/login", {
@@ -128,6 +141,9 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (error) {
                 console.error("Login error:", error);
                 showToast(response.message || "Failed to login user", "error");
+            } finally {
+                authBtn.disabled = false;
+                authBtn.innerHTML = "Login";
             }
         });
     }
