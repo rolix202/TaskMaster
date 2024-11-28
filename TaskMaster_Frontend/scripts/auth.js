@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             authBtn.disabled = true;
             authBtn.innerHTML = `
-                <span class="loader"></span> Logging in...`;
+                <div class="loader"></div> Logging in...`;
     
             try {
                 const response = await fetch("https://taskmaster-fc59.onrender.com/api/auth/signup", {

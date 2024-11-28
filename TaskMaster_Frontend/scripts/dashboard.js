@@ -1,3 +1,5 @@
+import { response } from "express";
+
 document.addEventListener('DOMContentLoaded', async () => {
 
     try {
@@ -59,9 +61,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (error) {
             console.error("Error during logout:", error);
            
-            showToast("An error occurred during logout.", "error");
+            showToast(response.message || "An error occurred during logout.", "error");
         }
     }
+
+    sidebarLogoutBtn.addEventListener("click", logout)
+    mainLogoutBtn.addEventListener("click", logout)
 
     
     const hamburgerBtn = document.getElementById("hamburger-btn");
