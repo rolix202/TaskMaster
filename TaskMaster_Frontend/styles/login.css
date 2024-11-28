@@ -137,9 +137,10 @@ body {
   background: #4b00c4;
   transform: translateY(-2px);
 }
-.auth-button.disabled {
+.auth-button:disabled {
   background-color: #b0c4de;
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 
