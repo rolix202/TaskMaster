@@ -44,9 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             const c_password = document.getElementById("c_password").value;
-
-            console.log(password);
-            
     
             const isValid = validateFields([
                 { name: 'Username', value: username },
@@ -77,13 +74,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const data = await response.json();
                 if (response.ok) {
                     showToast("Signup successful", "success");
-                    window.location.href = "login.html"; // Redirect
+                    window.location.href = "login.html";
                 } else {
                     showToast(data.message || "Signup failed", "error");
                 }
             } catch (error) {
-                console.error("Signup error:", error);
-                showToast("Failed to register user", "error");
+                console.log("Signup error:", error);
+                showToast(response.message || "Failed to register user", "error");
             }
         });
     }
